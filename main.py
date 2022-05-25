@@ -5,7 +5,7 @@ input_text = "abcdefgh"
 key = [1, 3, 0, 2]
 '''
 
-
+#Проверка!!!!!!!!!!!!!!!!!
 def encrypt():
     input_text = input("Введите текст:\n")
     key = input("Введите ключ через пробел:\n").split()
