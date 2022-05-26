@@ -5,18 +5,36 @@ input_text = "abcdefgh"
 key = [1, 3, 0, 2]
 '''
 
-#Проверка!!!!!!!!!!!!!!!!!
+
 def encrypt():
     input_text = input("Введите текст:\n")
-    key = input("Введите ключ через пробел:\n").split()
-    for i in range(len(key)):
-        key[i] = int(key[i])
+    # Ввод и проверка ключа
+    key_check = False
+    while key_check == False:
+        key = input("Введите ключ через пробел:\n").split()
+        for i in range(len(key)):
+            key[i] = int(key[i])
+        if (int(min(key)) != 0) or (int(max(key)) != len(key) - 1) or (len(key) != (int(max(key)) - int(min(key)) + 1)):
+            print("Некорректный ввод ключа")
+        else:
+            check = True
+            for i in range(len(key) - 1):
+                if key[i] in key[i + 1:len(key)]:
+                    check = False
+                    break
+            if check == False:
+                print("Некорректный ввод ключа")
+            else:
+                key_check = True
     block_size = len(key)
+    # Ввод и проверка группы
     group = input("Введите количество в символов в группе или ключевое слово 'word' для шифрования по словам:\n")
     if group == 'word':
         input_text = input_text.split()
     else:
+        input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
+    print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
@@ -33,14 +51,31 @@ def encrypt():
 
 def decrypt():
     input_text = input("Введите текст:\n")
-    key = input("Введите ключ через пробел:\n").split()
-    for i in range(len(key)):
-        key[i] = int(key[i])
+    # Ввод и проверка ключа
+    key_check = False
+    while key_check == False:
+        key = input("Введите ключ через пробел:\n").split()
+        for i in range(len(key)):
+            key[i] = int(key[i])
+        if (int(min(key)) != 0) or (int(max(key)) != len(key) - 1) or (len(key) != (int(max(key)) - int(min(key)) + 1)):
+            print("Некорректный ввод ключа")
+        else:
+            check = True
+            for i in range(len(key) - 1):
+                if key[i] in key[i + 1:len(key)]:
+                    check = False
+                    break
+            if check == False:
+                print("Некорректный ввод ключа")
+            else:
+                key_check = True
     block_size = len(key)
+    # Ввод и проверка группы
     group = input("Введите количество в символов в группе или ключевое слово 'word' для шифрования по словам:\n")
     if group == 'word':
         input_text = input_text.split()
     else:
+        input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
     for i in range(-1 * len(input_text) // block_size * -1):
