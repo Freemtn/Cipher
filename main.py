@@ -32,7 +32,7 @@ def encrypt():
     if group == 'word':
         input_text = input_text.split()
     else:
-        input_text += "\0" * (len(input_text) % int(group))
+        input_text += "/" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
     print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
@@ -76,7 +76,7 @@ def decrypt():
     if group == 'word':
         input_text = input_text.split()
     else:
-        input_text += "\0" * (len(input_text) % int(group))
+        input_text += "/" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
     print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
@@ -89,9 +89,11 @@ def decrypt():
                 output[j + i * block_size] = input_text[int(key[j]) + i * block_size]
     print("Вывод: ")
     if group == "word":
-        print(" ".join(output))
+        output = " ".join(output).replace("/", "")
+        print(output)
     else:
-        print("".join(output))
+        output = "".join(output).replace("/", "")
+        print(output)
 
 
 a = True
