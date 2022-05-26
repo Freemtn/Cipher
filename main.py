@@ -34,7 +34,6 @@ def encrypt():
     else:
         input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
-    print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
