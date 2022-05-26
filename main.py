@@ -34,11 +34,13 @@ def encrypt():
     else:
         input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
+    print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
+    print(output)
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
             if j + i * block_size > len(input_text) - 1:
-                output[int(key[j]) + i * block_size] = "\0"
+                output[int(key[j]) + i * block_size] = "/"
             else:
                 output[int(key[j]) + i * block_size] = input_text[j + i * block_size]
     print("Вывод: ")
@@ -76,11 +78,13 @@ def decrypt():
     else:
         input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
+    print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
+    print(output)
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
             if j + i * block_size > len(input_text) - 1:
-                output[j + i * block_size] = "\0"
+                output[j + i * block_size] = "/"
             else:
                 output[j + i * block_size] = input_text[int(key[j]) + i * block_size]
     print("Вывод: ")
