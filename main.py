@@ -1,11 +1,3 @@
-'''
-input_text = "кафедра систем информатики"
-key = [2, 0, 3, 4, 1]
-input_text = "abcdefgh"
-key = [1, 3, 0, 2]
-'''
-
-
 def encrypt():
     input_text = input("Введите текст:\n")
     # Ввод и проверка ключа
@@ -34,9 +26,7 @@ def encrypt():
     else:
         input_text += "/" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
-    print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
-    print(output)
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
             if j + i * block_size > len(input_text) - 1:
@@ -78,9 +68,9 @@ def decrypt():
     else:
         input_text += "/" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
-    print(input_text)
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
-    print(output)
+    if len(output) > len(input_text):
+        input_text += ["/"] * (len(output) - len(input_text))
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
             if j + i * block_size > len(input_text) - 1:
