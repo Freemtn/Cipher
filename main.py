@@ -24,13 +24,13 @@ def encrypt():
     if group == 'word':
         input_text = input_text.split()
     else:
-        input_text += "/" * (len(input_text) % int(group))
+        input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
             if j + i * block_size > len(input_text) - 1:
-                output[int(key[j]) + i * block_size] = "/"
+                output[int(key[j]) + i * block_size] = "\0"
             else:
                 output[int(key[j]) + i * block_size] = input_text[j + i * block_size]
     print("Вывод: ")
@@ -66,23 +66,23 @@ def decrypt():
     if group == 'word':
         input_text = input_text.split()
     else:
-        input_text += "/" * (len(input_text) % int(group))
+        input_text += "\0" * (len(input_text) % int(group))
         input_text = [input_text[i:i + int(group)] for i in range(0, len(input_text), int(group))]
     output = [" "] * block_size * (-1 * len(input_text) // block_size * -1)
     if len(output) > len(input_text):
-        input_text += ["/"] * (len(output) - len(input_text))
+        input_text += ["\0"] * (len(output) - len(input_text))
     for i in range(-1 * len(input_text) // block_size * -1):
         for j in range(block_size):
             if j + i * block_size > len(input_text) - 1:
-                output[j + i * block_size] = "/"
+                output[j + i * block_size] = "\0"
             else:
                 output[j + i * block_size] = input_text[int(key[j]) + i * block_size]
     print("Вывод: ")
     if group == "word":
-        output = " ".join(output).replace("/", "")
+        output = " ".join(output).replace("\0", "")
         print(output)
     else:
-        output = "".join(output).replace("/", "")
+        output = "".join(output).replace("\0", "")
         print(output)
 
 
